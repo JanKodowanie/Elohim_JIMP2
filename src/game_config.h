@@ -1,6 +1,7 @@
-//Struktura przechowuj¹ca konfiguracjê programu
+#ifndef _GAME_CONFIG_
+#define _GAME_CONFIG_
 
-
+//Struktura przechowujaca konfiguracje programu
 typedef struct {
 
     int help;
@@ -14,3 +15,7 @@ typedef struct {
 
 } *config;
 
+
+
+
+#endif // _GAME_CONFIG_
