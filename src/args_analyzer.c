@@ -16,7 +16,8 @@ config analyze_args(int argc, char** argv){
     config settings = malloc(sizeof(config));
     settings->defchar='1';  //defchar domyslnie na 1
                             //nie trzeba ustawiac w print err
-
+    settings->random[0] = 0;
+    settings->random[1] = 0;
 
     int flagcounter[8] = {0,0,0,0,0,0,0,0};
     int n=1, flagerror=0;
