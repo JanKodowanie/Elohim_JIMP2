@@ -14,7 +14,7 @@ int main(int argc, char **argv){
     config cfg = analyze_args(argc, argv);
     board cells = malloc(sizeof(board));
 
-    if(cfg->random[0]==0||cfg->random[1]==0||){
+    if(cfg->random[0]==0||cfg->random[1]==0){
         read_file(cfg->input, cells, cfg->defchar);
     }
     else{
