@@ -13,7 +13,7 @@ void print_help () {
 
 config analyze_args(int argc, char** argv){
 
-    config settings = malloc(sizeof(config));
+    config settings = malloc(sizeof(config*));
     settings->defchar='1';  //defchar domyslnie na 1
                             //nie trzeba ustawiac w print err
     settings->random[0] = 0;
@@ -35,7 +35,6 @@ config analyze_args(int argc, char** argv){
                     n++;
                     settings->defchar = argv[n][0];
                 } else {
-                    settings->defchar = '1';
                     print_error(10);       //defchar: podanym znakiem jest 0
                 }
             }
