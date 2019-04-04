@@ -22,7 +22,7 @@ void write_to_file(char* filename, board cells){
 
     }
 
-    printf("Matrix saved to path: %s\n", filename);
+    printf("Matrix saved to file: %s\n", filename);
     fclose(out);
 
 }
