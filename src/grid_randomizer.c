@@ -3,7 +3,7 @@
 #include "grid_randomizer.h"
 
 
-void grid_randomizer(board cells, char defchar){
+void fill_random(board cells, char defchar){
 
     cells->matrix = malloc(cells->rows*sizeof(char*));
 
