@@ -21,14 +21,14 @@ int main(int argc, char **argv){
         cells->rows = cfg->random[0];
         cells->columns = cfg->random[1];
 
-        grid_randomizer(cells, cfg->defchar);
+        fill_random(cells, cfg->defchar);
 
     }
 
     transform_cells(cells, cfg);
 
     if(cfg->backup == 1)
-        write_to_file(cfg->input, cells);
+        write_to_file("backup.txt", cells);
 
     free(cfg);
     free(cells);
