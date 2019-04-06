@@ -4,7 +4,7 @@
 
 #include "board_storage.h"
 
-void grid_randomizer(board, char);
+void fill_random(board, char);
 
 
 
