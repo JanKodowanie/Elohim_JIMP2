@@ -1,14 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "txtFile_mngr.h"
 
+void write_to_file(char* output, board cells){
 
-void write_to_file(char* filename, board cells){
-
-    FILE *out = fopen(filename, "w");
-
+    char *path = malloc((strlen(output)+ 12)* sizeof(char)) ;
+    strcpy (path, output);
+    strcat (path, "/backup.txt");
+    FILE *out = fopen(path, "w");
     char **tmp = cells->matrix;
-
 
     for(int i=0; i<cells->rows; i++){
 
@@ -18,20 +19,21 @@ void write_to_file(char* filename, board cells){
          }
 
          fprintf(out, "\n");
-
-
     }
-
-    printf("Matrix saved to file: %s\n", filename);
+    free(path);
+    //printf("Matrix saved to file: backup.txt\n");
     fclose(out);
 
 }
 
-void read_file(char* filename, board cells, char defchar){
+
+void read_file(char* filename, board cells, char defchar)
+{
 
     FILE *in = fopen(filename, "r");
 
-    if(in==NULL){
+    if(in==NULL)
+    {
         print_error(9);
     }
 
@@ -45,20 +47,24 @@ void read_file(char* filename, board cells, char defchar){
 
 
 
-    while((c=fgetc(in))!=EOF){
+    while((c=fgetc(in))!=EOF)
+    {
 
-        if(rows>100||columns>100){
+        if(rows>100||columns>100)
+        {
             dim_error++;
             break;
         }
-        if(c!='0'&&c!=' '&&c!=defchar&&c!='\n'&&c!='\0'&&c!='\t'){
+        if(c!='0'&&c!=' '&&c!=defchar&&c!='\n'&&c!='\0'&&c!='\t')
+        {
             sym_error++;
             break;
         }
         if(c=='0'||c==defchar)
             columns++;
 
-        if(c=='\n'&&columns!=0){
+        if(c=='\n'&&columns!=0)
+        {
             row_len[rows]=columns;
             columns=0;
             rows++;
@@ -68,17 +74,22 @@ void read_file(char* filename, board cells, char defchar){
 
     }
 
-    if(sym_error!=0){
+    if(sym_error!=0)
+    {
         print_error(8);
     }
-    if(dim_error!=0){
+    if(dim_error!=0)
+    {
         print_error(2);
     }
 
-    if(rows!=0){
+    if(rows!=0)
+    {
         columns = row_len[0];
-        for(int i=1; i<rows; i++){
-            if(row_len[i]!=columns){
+        for(int i=1; i<rows; i++)
+        {
+            if(row_len[i]!=columns)
+            {
                 print_error(12);
 
             }
@@ -87,16 +98,19 @@ void read_file(char* filename, board cells, char defchar){
         rewind(in);
 
         char **tmp = malloc(rows*sizeof(char*));
-        for(int i=0; i<rows;){
+        for(int i=0; i<rows;)
+        {
             tmp[i] = malloc(columns*sizeof(char));
-            for(int j=0; j<columns;){
+            for(int j=0; j<columns;)
+            {
                 c=fgetc(in);
-                if(c=='0'||c==defchar){
+                if(c=='0'||c==defchar)
+                {
                     tmp[i][j]=c;
                     j++;
                 }
 
-                }
+            }
             i++;
 
         }
@@ -105,10 +119,12 @@ void read_file(char* filename, board cells, char defchar){
         cells->rows = rows;
         cells->columns = columns;
 
-    printf("Input read successfully\n");
+        printf("Input read successfully\n");
+        fclose(in);
     }
 
-    else{
+    else
+    {
 
         print_error(13);
         fclose(in);
@@ -119,30 +135,3 @@ void read_file(char* filename, board cells, char defchar){
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

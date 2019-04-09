@@ -14,7 +14,7 @@ int main(int argc, char **argv){
     config cfg = analyze_args(argc, argv);
     board cells = malloc(sizeof(*cells));
 
-    if(cfg->random[0]==0||cfg->random[1]==0||){
+    if(cfg->random[0]==0||cfg->random[1]==0){
         read_file(cfg->input, cells, cfg->defchar);
     }
     else{
@@ -28,17 +28,17 @@ int main(int argc, char **argv){
     transform_cells(cells, cfg);
 
     if(cfg->backup == 1)
-        write_to_file("backup.txt", cells);
+        write_to_file(cfg->output, cells);
 
     free(cfg->input);
     free(cfg->output);
     free(cfg);
 
-    for(int i=0; i<cells->rows; i++){
-        free(cells->matrix[i]);
-    }
-    free(cells->matrix);
-    free(cells);
+   for(int i=0; i<cells->rows; i++){
+       free(cells->matrix[i]);
+   }
+   free(cells->matrix);
+   free(cells);
 
 
     return EXIT_SUCCESS;
