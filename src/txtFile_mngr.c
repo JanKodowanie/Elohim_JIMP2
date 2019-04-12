@@ -21,13 +21,12 @@ void write_to_file(char* output, board cells){
          fprintf(out, "\n");
     }
     free(path);
-    //printf("Matrix saved to file: backup.txt\n");
     fclose(out);
 
 }
 
 
-void read_file(char* filename, board cells, char defchar)
+int read_file(char* filename, board cells, char defchar)
 {
 
     FILE *in = fopen(filename, "r");
@@ -35,6 +34,7 @@ void read_file(char* filename, board cells, char defchar)
     if(in==NULL)
     {
         print_error(9);
+        return 1;
     }
 
 
@@ -77,10 +77,12 @@ void read_file(char* filename, board cells, char defchar)
     if(sym_error!=0)
     {
         print_error(8);
+        return 1;
     }
     if(dim_error!=0)
     {
         print_error(2);
+        return 1;
     }
 
     if(rows!=0)
@@ -91,6 +93,7 @@ void read_file(char* filename, board cells, char defchar)
             if(row_len[i]!=columns)
             {
                 print_error(12);
+                return 1;
 
             }
         }
@@ -128,10 +131,38 @@ void read_file(char* filename, board cells, char defchar)
 
         print_error(13);
         fclose(in);
+        return 1;
 
     }
 
-
+    return 0;
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
