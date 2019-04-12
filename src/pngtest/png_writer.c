@@ -105,8 +105,8 @@ int main(int argc, char **argv) {
     for (int i=0; i<cells->rows; i++) {
         cells->matrix[i] = malloc(sizeof(char) * cells->columns);
         for (int j=0; j<cells->columns; j++) {
-            int dupa = rand() % 2;
-            cells->matrix[i][j] = dupa == 1 ? settings->defchar : '0';
+            int tmp = rand() % 2;
+            cells->matrix[i][j] = tmp == 1 ? settings->defchar : '0';
             //printf("%c", cells->matrix[i][j]);
         }
     }
