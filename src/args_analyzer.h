@@ -1,23 +1,10 @@
 #ifndef ARGS_ANALYZER_H
-
 #define ARGS_ANALYZER_H
 
-
-#include <stdio.h>
-
-#include <stdlib.h>
-
-#include <time.h>
-
-#include <string.h>
-
-
 #include "game_config.h"
+#include "error_handler.h"
+#include "help.h"
 
-
-config analyze_args (int, char**);
-
-
-void print_help(void);
+int analyze_args (int, char**, config);
 
 #endif // ARGS_ANALYZER_H

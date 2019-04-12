@@ -4,7 +4,7 @@
 #include "game_config.h"
 #include "error_handler.h"
 
-void read_file(char*, board, char);
+int read_file(char*, board, char );
 void write_to_file(char*, board);
 
 
