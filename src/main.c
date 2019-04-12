@@ -15,7 +15,8 @@ int main(int argc, char **argv){
     board cells = malloc(sizeof(*cells));
 
     if(cfg->random[0]==0||cfg->random[1]==0){
-        read_file(cfg->input, cells, cfg->defchar);
+        read_file(cfg->input, cells, cfg);
+	free(cfg->input);
     }
     else{
         cells->rows = cfg->random[0];
@@ -29,9 +30,21 @@ int main(int argc, char **argv){
 
     if(cfg->backup == 1)
         write_to_file(cfg->output, cells);
+    else {
+	if (cells->rows < 20 && cells->columns < 20) {
+		printf("%i-th generation:\n", cfg->ngen);
+    		for (int i=0; i<cells->rows; i++) {
+			for (int j=0; j<cells->columns; j++)
+				printf("%c ", cells->matrix[i][j]);
+			printf("\n");
+		}
+	}
+    }
+    if (cfg->output != NULL) {
+	   printf("Output files created in directory %s\n", cfg->output);
+	   free(cfg->output);
+    }
 
-    free(cfg->input);
-    free(cfg->output);
     free(cfg);
 
    for(int i=0; i<cells->rows; i++){
