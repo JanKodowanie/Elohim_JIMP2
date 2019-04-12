@@ -2,20 +2,18 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-
 #include <sys/stat.h>
 #include <sys/types.h>
+
 #include "args_analyzer.h"
-#include "error_handler.h"
-#include "help.h"
+
 
 struct stat st = {0};
 
 
-config analyze_args(int argc, char** argv)
+int analyze_args(int argc, char** argv, config settings)
 {
 
-    config settings = malloc(sizeof(*settings));
     settings->defchar='1';
     settings->random[0] = 0;
     settings->random[1] = 0;
@@ -30,15 +28,15 @@ config analyze_args(int argc, char** argv)
     {
         if (strcmp(argv[n], "--help") == 0) {
             flagcounter[0]++;
-            free(settings);
             print_help();
+            return 1;
         }
         else if (strcmp(argv[n], "--defchar") == 0)
         {
             flagcounter[1]++;
             if (strlen(argv[n+1]) != 1) {
-                free(settings);
                 print_error(1);
+                return 1;
             }
             else {
                 if (argv[n+1][0] != '0') {
@@ -46,7 +44,7 @@ config analyze_args(int argc, char** argv)
                     settings->defchar = argv[n][0];
                 }
                 else {
-                    print_error(10);       //defchar: podanym znakiem jest 0
+                    print_error(10);
                 }
             }
         }
@@ -63,13 +61,13 @@ config analyze_args(int argc, char** argv)
                     n += 2;
                 }
                 else {
-                    free(settings);
                     print_error(2);
+                    return 1;
                 }
             }
             else {
-                free(settings);
                 print_error(3);
+                return 1;
             }
         }
         else if (strcmp(argv[n], "--input") == 0) {
@@ -81,9 +79,8 @@ config analyze_args(int argc, char** argv)
                 n++;
             }
             else {
-                free(settings->input);
-                free(settings);
                 print_error(3);
+                return 1;
             }
         }
         else if (strcmp(argv[n], "--ngen") == 0) {
@@ -94,11 +91,11 @@ config analyze_args(int argc, char** argv)
                 settings->ngen = atoi(tmp);
             else {
                 print_error(4);
-                printf("Please input a number from range: (0, 100> or press\n");
-                printf("CTRL+C, to exit.\n");
-                while( !(atoi(tmp) > 0 && atoi(tmp) <= 100) ) {
+                do{	
+                    printf("Please input a number from range: (0, 100> or press\n");
+                    printf("CTRL+C, to exit.\n");
                     scanf("%s", tmp);
-                }
+                } while( !(atoi(tmp) > 0 && atoi(tmp) <= 100)); 
                 settings->ngen = atoi(tmp);
             }
         }
@@ -120,15 +117,15 @@ config analyze_args(int argc, char** argv)
             settings -> ispngactive = 1;
         }
         else {
-            free(settings);
             print_error(5);
+            return 1;
         }
         n++;
     }
     for (int i=0; i<8; i++) {
         if (flagcounter[i] > 1) {
-	    free(settings);
-        print_error(6);
+            print_error(6);
+            return 1;
         }
     }
     if ( flagcounter[5] == 0 && (flagcounter[6] == 1 || flagcounter[7] == 1) ) {
@@ -139,16 +136,16 @@ config analyze_args(int argc, char** argv)
     }
     if (flagcounter[4] == 0) {
         print_error(11);
-        char* tmp1 = malloc(sizeof(*tmp1));
-        printf("Please input a number from range: (0, 100> or press\n");
-        printf("CTRL+C, to exit.\n");
-        while( !(atoi(tmp1) > 0 && atoi(tmp1) <= 100) ) {
+        char* tmp1 = malloc(4*sizeof(char));
+
+        do {
+            printf("Please input a number from range: (0, 100> or press\n");
+            printf("CTRL+C, to exit.\n");
             scanf("%s", tmp1);
-        }
+        } while( !(atoi(tmp1) > 0 && atoi(tmp1) <= 100) );
         settings->ngen = atoi(tmp1);
         free(tmp1);
     }
 
-    return settings;
+    return 0;
 }
-
