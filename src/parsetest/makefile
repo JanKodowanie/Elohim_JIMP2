@@ -1,0 +1,4 @@
+CC = gcc
+
+all:
+	gcc *.c -o test
