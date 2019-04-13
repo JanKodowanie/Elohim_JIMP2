@@ -4,7 +4,7 @@
 #include "error_handler.h"
 
 
-void print_error(int errcode) {
+void print_error(int errcode) { //poprawka 2 - usuniecie config
     printf("Error no. %2i, ", errcode);
     switch (errcode) {
         case 1: {
@@ -20,7 +20,7 @@ void print_error(int errcode) {
             printf("Program will terminate.\n");
         }; break;
         case 4: {
-            printf("ngen: generation number not in the range of (0; 100>.\n");
+            printf("ngen: generation number not in the range of (0; 100>.\n"); //poprawka 1
         }; break;
         case 5: {
             printf("stdin: unrecognized flags.\n");
@@ -46,7 +46,7 @@ void print_error(int errcode) {
             printf ("defchar: '0' symbol was given. Setting defchar to '1'.\n");
         }; break;
         case 11: {
-            printf ("ngen: no generation number entered\n");
+            printf ("ngen: no generation number entered\n");                                            //poprawka 3
         }; break;
         case 12: {
             printf ("input: matrix has uneven columns. \n");
@@ -61,34 +61,8 @@ void print_error(int errcode) {
             printf("Program will terminate.\n");
         }
     }
-
+    if (errcode != 4 && errcode != 10 && errcode != 11) {   //poprawka 4
+        exit(errcode);
+    }
     return;
 }
-
-
-void free_heap(config cfg, board cells){
-
-    if(cells->matrix != NULL){
-
-        for(int i=0; i<cells->rows; i++){
-
-            free(cells->matrix[i]);
-        }
-
-        free(cells->matrix);
-
-    }
-
-    free(cells);
-
-    if(cfg->input != NULL)
-        free(cfg->input);
-    if(cfg->output != NULL)
-        free(cfg->output);
-
-    free(cfg);
-
-
-
-}
-

@@ -7,11 +7,9 @@
 void transform_cells(board cells, config cfg) {
     int n=0;
     /*if (cfg->ispngactive == 1) {
-        char* zerogen = malloc((strlen(cfg->output)+9) * sizeof(char));
-        strcpy(zerogen, cfg->output);
-        strcat(zerogen, "/000.png");
-        write_png_file(zerogen, cells, cfg->defchar);
-        free(zerogen);
+        chdir("png/");
+        process_file(cells, cfg->defchar);                             //png zerowej generacji
+        write_png_file("000.png");
     }*/
     int r, c, counter;
     char **next = malloc(cells->rows*sizeof(char*));
@@ -49,20 +47,19 @@ void transform_cells(board cells, config cfg) {
             }
         n++;
         /*if (cfg->ispngactive == 1) {
-            char* nthgen = malloc ((strlen(cfg->output)+9) * sizeof(char));
-            strcpy(nthgen, cfg->output);
-            char* number = malloc (9*sizeof(char));
-            snprintf (number, 5, "/%03i", n);
+            process_file(cells, cfg->defchar);
+            char* number = malloc (8*sizeof(char));
+            snprintf (number, 4, "%03i", n);
             strcat(number, ".png");
-            strcat(nthgen, number);
-            write_png_file(nthgen, cells, cfg->defchar);
-            free(number);
-            free(nthgen);
+            write_png_file(number);
+	    free(number);
         }*/
     }
     for (int i=0; i<cells->rows; i++)
 	    free(next[i]);
     free(next);
-
+    /*if (cfg->ispngactive == 1)
+        chdir("../");*/
 }
+
 

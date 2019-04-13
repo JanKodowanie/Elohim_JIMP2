@@ -6,7 +6,7 @@
 #include "game_of_life.h"
 
 int main (int argc, char **argv) {
-    board cells = malloc(sizeof(board));
+    board cells = malloc(sizeof(*cells));
     config settings = malloc(sizeof(*settings));
     settings->defchar = '1';
     settings->ngen = atoi(argv[3]);
@@ -27,7 +27,7 @@ int main (int argc, char **argv) {
     }
     transform_cells(cells, settings);
     /*wypisywanie*/
-    printf("%i %i\n", cells->rows, cells->columns);
+    printf("Matrix %ix%i, %i-th generation\n", cells->rows, cells->columns, settings->ngen);
     for (i=0;i<cells->rows;i++) {
         for (j=0; j<cells->columns;j++)
             printf ("%c ", cells->matrix[i][j]);

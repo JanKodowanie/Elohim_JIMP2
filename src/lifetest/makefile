@@ -1,4 +1,4 @@
 CC = gcc
 
 all:
-	gcc *.c -o test
+	gcc *.c -o test -g
