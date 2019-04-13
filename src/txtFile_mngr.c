@@ -77,11 +77,13 @@ int read_file(char* filename, board cells, char defchar)
     if(sym_error!=0)
     {
         print_error(8);
+        fclose(in);
         return 1;
     }
     if(dim_error!=0)
     {
         print_error(2);
+        fclose(in);
         return 1;
     }
 
@@ -93,6 +95,7 @@ int read_file(char* filename, board cells, char defchar)
             if(row_len[i]!=columns)
             {
                 print_error(12);
+                fclose(in);
                 return 1;
 
             }
